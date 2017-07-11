@@ -1,0 +1,287 @@
+@prefix clavius: <> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix d2rq: <http://www.wiwiss.fu-berlin.de/suhl/bizer/D2RQ/0.1#> .
+@prefix jdbc: <http://d2rq.org/terms/jdbc/> .
+
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix dbpedia: <http://dbpedia.org/resource/> .
+@prefix v: <http://www.w3.org/2006/vcard/ns#> .
+@prefix map: <#> .
+@prefix gn: <http://www.geonames.org/ontology#> .
+@prefix bibo: <http://purl.org/ontology/bibo/> .
+
+@prefix void: <http://rdfs.org/ns/void#> .
+@prefix dc: <http://purl.org/dc/elements/1.1/> .
+@prefix bio: <http://vocab.org/bio/0.1/.html#> .
+
+@prefix d2r: <http://sites.wiwiss.fu-berlin.de/suhl/bizer/d2r-server/config.rdf#> .
+#@prefix meta: <http://www4.wiwiss.fu-berlin.de/bizer/d2r-server/metadata#> .
+
+@prefix edm: <http://www.europeana.eu/schemas/edm/> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix ore: <http://www.openarchives.org/ore/terms/> .
+@prefix dbo: <http://dbpedia.org/ontology/> .
+@prefix wgs84_pos: <http://www.w3.org/2003/01/geo/wgs84_pos#> .
+
+<> a d2r:Server;
+	rdfs:label "Clavius on the Web";
+	#d2r:baseURI <http://claviusontheweb.it/dataset/>;
+	d2r:baseURI <http://localhost:3129/>;
+	d2r:port 3129;
+	d2r:vocabularyIncludeInstances true;
+  
+	d2r:sparqlTimeout 300;
+	d2r:pageTimeout 5;
+	
+#	d2r:metadataTemplate "dataset-metadata.n3";
+  
+#  meta:datasetTitle "Clavius on the Web" ;
+#  meta:datasetDescription "" ;
+#  meta:datasetSource "The Web" ;
+.
+
+
+map:database a d2rq:Database;
+	d2rq:jdbcDriver "com.mysql.jdbc.Driver";
+	#d2rq:jdbcDSN "jdbc:mysql://localhost/Clavius_new";
+	d2rq:jdbcDSN "jdbc:mysql://localhost/Clavius";
+	d2rq:username "root";
+	d2rq:password "";
+	#d2rq:password "webb_labb";
+	jdbc:autoReconnect "true";
+	jdbc:zeroDateTimeBehavior "convertToNull";
+	.
+
+# Aggregation
+map:Aggregation a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "aggregation-@@Letter.local_name|urlify@@";
+	d2rq:class ore:Aggregation;
+	.
+
+map:aggregation_data_provider a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Aggregation;
+	d2rq:property edm:dataProvider;
+	d2rq:constantValue clavius:APUG;
+	.
+
+# URI of the web resource
+map:aggregation_has_view a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Aggregation;
+	d2rq:property edm:hasView;
+	d2rq:uriPattern "#";
+	.
+	
+# URI of the preview
+map:aggregation_is_shown_by a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Aggregation;
+	d2rq:property edm:isShownBy;
+	d2rq:uriPattern "#";
+	.
+	
+map:aggregation_provider a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Aggregation;
+	d2rq:property edm:provider;
+	d2rq:constantValue clavius:APUG;
+	.
+	
+map:aggregation_intermediate_provider a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Aggregation;
+	d2rq:property edm:intermediateProvider;
+	d2rq:constantValue clavius:IIT;
+	.
+	
+map:aggregation_rights a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Aggregation;
+	d2rq:property dc:rights;
+	d2rq:uriPattern "#";
+	.
+	
+map:aggregation_aggregated_cho a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Aggregation;
+	d2rq:property edm:aggregatedCHO;
+	d2rq:uriPattern "letter-@@Letter.local_name|urlify@@";
+	.
+
+# Letter
+map:Letter a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "letter-@@Letter.local_name|urlify@@";
+	d2rq:class edm:ProvidedCHO;
+	.
+	
+map:letter_subject a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Letter;
+	d2rq:property dcterms:subject;
+	d2rq:condition "Letter.author = Person.person_id";
+	d2rq:uriPattern "From_@@Person.name_surname|urlify@@";
+	.
+	
+map:letter_creator a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Letter;
+	d2rq:property dc:creator;
+	d2rq:condition "Letter.author = Person.person_id";
+	d2rq:uriPattern "@@Person.name_surname|urlify@@";
+	.
+	
+map:letter_date a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Letter;
+	d2rq:property dc:date;
+	d2rq:condition "Letter.date != '0000-00-00'";
+	d2rq:column "Letter.date";
+	.
+
+map:letter_title a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Letter;
+	d2rq:property dc:title;
+	d2rq:column "Letter.title";
+	.
+	
+map:letter_format a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Letter;
+	d2rq:property dc:format;
+	d2rq:condition "Letter.material != ''";
+	d2rq:column "Letter.material";
+	.
+	
+map:letter_identifier a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Letter;
+	d2rq:property dc:identifier;
+	d2rq:column "Letter.idno";
+	.
+	
+map:letter_created a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Letter;
+	d2rq:property dcterms:created;
+	d2rq:condition "Letter.date != '0000-00-00'";
+	d2rq:column "Letter.date";
+	.
+	
+map:letter_extent a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Letter;
+	d2rq:property dcterms:extent;
+	d2rq:condition "Letter.height != 0 AND Letter.depth != 0";
+	d2rq:pattern "@@Letter.height@@ mm x @@Letter.depth@@ mm";
+	.
+	
+# TODO set languages
+map:letter_language a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Letter;
+	d2rq:property dc:language;
+	d2rq:condition "Letter.language != ''";
+	d2rq:column "Letter.language";
+	.
+	
+map:letter_publisher a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Letter;
+	d2rq:property dc:publisher;
+	d2rq:constantValue clavius:APUG;
+	.
+	
+# TODO decide rights
+map:letter_rights a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Letter;
+	d2rq:property dc:rights;
+	d2rq:constantValue "TO BE DECIDED";
+	.
+	
+# TODO decide rights
+map:letter_type a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Letter;
+	d2rq:property dc:type;
+	d2rq:constantValue dbo:Letter;
+	.
+	
+map:letter_current_location a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Letter;
+	d2rq:property edm:currentLocation;
+	d2rq:constantValue clavius:Roma;
+	.
+	
+#TODO edm:isNextInSequence edm:isSuccessorOf
+	
+
+map:letter_is_related_to a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Letter;
+	d2rq:property edm:isRelatedTo;
+	d2rq:constantValue dbpedia:Astronomy;
+	.
+
+map:letter_edm_type a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Letter;
+	d2rq:property edm:type;
+	d2rq:constantValue "IMAGE";
+	.
+	
+# Agent
+map:Agent a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "@@Person.name_surname|urlify@@";
+	d2rq:class edm:Agent;
+	.
+
+map:agent_name a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Agent;
+	d2rq:property foaf:name;
+	d2rq:column "Person.name_surname";
+	.	
+
+map:agent_begin a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Agent;
+	d2rq:property edm:begin;
+	d2rq:condition "Person.was_born != 0";
+	d2rq:column "Person.was_born";
+	.	
+
+map:agent_end a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Agent;
+	d2rq:property edm:end;
+	d2rq:condition "Person.died != 0";
+	d2rq:column "Person.died";
+	.
+	
+# Place
+map:Place a d2rq:ClassMap; 
+	d2rq:dataStorage map:database;
+	d2rq:class edm:Place;
+	d2rq:uriPattern "@@Place.original_name|urlify@@";
+	.
+	
+map:place_name a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Place;
+	d2rq:property skos:prefLabel;
+	d2rq:column "Place.original_name";
+	.
+	
+# Organization
+map:Organization a d2rq:ClassMap; 
+	d2rq:dataStorage map:database;
+	d2rq:class foaf:Organization;
+	d2rq:uriPattern "@@Providers.name|urlify@@";
+	.
+
+map:APUG_name a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Organization;
+	d2rq:property rdfs:label;
+	d2rq:column "Providers.description";
+	.
+	
+
+# Subject
+map:Subject a d2rq:ClassMap; 
+	d2rq:dataStorage map:database;
+	d2rq:class skos:Concept;
+	d2rq:condition "Letter.author = Person.person_id";
+	d2rq:uriPattern "From_@@Person.name_surname|urlify@@";
+	.
+
+map:Subject_label a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Subject;
+	d2rq:property skos:prefLabel;
+	d2rq:condition "Letter.author = Person.person_id";
+	d2rq:pattern "Letter from @@Person.name_surname@@ to Christopher Clavius";
+	.
