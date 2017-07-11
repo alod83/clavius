@@ -236,6 +236,12 @@ map:agent_begin a d2rq:PropertyBridge;
 	d2rq:condition "Person.was_born != 0";
 	d2rq:column "Person.was_born";
 	.	
+	
+map:agent_date_of_birth a d2rq:PropertyBridge;
+    d2rq:belongsToClassMap map:Agent;
+    d2rq:property foaf:date;
+    d2rq:column "Person.date_of_birth";
+    .	
 
 map:agent_end a d2rq:PropertyBridge;
 	d2rq:belongsToClassMap map:Agent;
