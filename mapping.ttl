@@ -224,7 +224,7 @@ map:Agent a d2rq:ClassMap;
 	d2rq:class edm:Agent;
 	.
 
-map:agent_name a d2rq:PropertyBridge;
+map:agent_name_surname a d2rq:PropertyBridge;
 	d2rq:belongsToClassMap map:Agent;
 	d2rq:property foaf:name;
 	d2rq:column "Person.name_surname";
@@ -252,7 +252,7 @@ map:agent_begin a d2rq:PropertyBridge;
 map:agent_date_of_birth a d2rq:PropertyBridge;
     d2rq:belongsToClassMap map:Agent;
     d2rq:property edm:begin;
-    d2rq:column "Person.date_of_birth";
+    d2rq:column "Person.was_born";
     .	
 	
 map:agent_end a d2rq:PropertyBridge;
@@ -265,22 +265,22 @@ map:agent_end a d2rq:PropertyBridge;
 map:agent_date_of_death a d2rq:PropertyBridge;
     d2rq:belongsToClassMap map:Agent;
     d2rq:property edm:end;
-    d2rq:column "Person.date_of_death";
+    d2rq:column "Person.died";
     .			
 	
 map:agent_place_of_birth a d2rq:PropertyBridge;
     d2rq:belongsToClassMap map:Agent;
     d2rq:property edm:Place;
-	d2rq:column "Person.place_of_birth";
+	d2rq:column "Person.born_in";
 	.
 	
 map:agent_place_of_death a d2rq:PropertyBridge;
     d2rq:belongsToClassMap map:Agent;
     d2rq:property edm:Place;
-	d2rq:column "Person.place_of_death";
+	d2rq:column "Person.died_in";
 	.	
 
-map:agent_bio a d2rq:PropertyBridge
+map:agent_bio a d2rq:PropertyBridge;
     d2rq:belongsToClassMap map:Agent;
 	d2rq:property foaf:text;
 	d2rq:column "Person.bio";
