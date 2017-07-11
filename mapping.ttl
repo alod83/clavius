@@ -242,6 +242,12 @@ map:agent_date_of_birth a d2rq:PropertyBridge;
     d2rq:property foaf:date;
     d2rq:column "Person.date_of_birth";
     .	
+	
+map:agent_date_of_death a d2rq:PropertyBridge;
+    d2rq:belongsToClassMap map:Agent;
+    d2rq:property foaf:date;
+    d2rq:column "Person.date_of_death";
+    .		
 
 map:agent_end a d2rq:PropertyBridge;
 	d2rq:belongsToClassMap map:Agent;
