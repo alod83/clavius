@@ -253,7 +253,7 @@ map:agent_date_of_birth a d2rq:PropertyBridge;
     d2rq:belongsToClassMap map:Agent;
     d2rq:property edm:begin;
 	d2rq:condition "Person.was_born != 0";
-	d2rq:condition "Person.was_born != []";
+	d2rq:condition "Person.was_born != ''";
     d2rq:column "Person.was_born";
     .	
 	
@@ -268,7 +268,7 @@ map:agent_date_of_death a d2rq:PropertyBridge;
     d2rq:belongsToClassMap map:Agent;
     d2rq:property edm:end;
 	d2rq:condition "Person.died != 0";
-	d2rq:condition "Person.died != []";
+	d2rq:condition "Person.died != ''";
     d2rq:column "Person.died";
     .			
 	
@@ -292,9 +292,9 @@ map:agent_bio a d2rq:PropertyBridge;
 
 map:agent_wikipedia_page a d2rq:PropertyBridge;
     d2rq:belongsToClassMap map:Agent;
-    d2rq:property edm:Person;
-	d2rq:condition Person.person_id = Wikipedia_Person.person_id;
-    d2rq:column "Person.wikipedia_page";
+    d2rq:property owl:sameAs;
+	d2rq:condition "Person.person_id = Wikipedia_Person.person_id";
+    d2rq:column "Wikipedia_Person.Wikipedia_Page";
     .	
 	
 # Place
