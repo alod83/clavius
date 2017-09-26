@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Clavius on the web Linked Dataset</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/main.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>                        
+      </button>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="ontology.html">Ontology</a></li>
+        <li><a href="resource.html">Resources</a></li>
+        <li><a href="dataset.html">Dataset</a></li>
+		<li><a href="contacts.html">Contacts</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+  
+<div class="container-fluid text-center">    
+   <div class="col-sm-12 text-justify"> 
+   	<h1>Ontology</h1>
+   	<p>CoW-LD exploits the following ontologies to represent data:
+   		<ul>
+   			<li><a href="https://pro.europeana.eu/resources/standardization-tools/edm-documentation">Europeana Data Model ontology</a> (EDM), as main ontology
+   			<li><a href="http://xmlns.com/foaf/spec/">FOAF</a> (property <b>foaf:knows</b> and other properties defined in EDM)
+   			<li><a href="https://www.w3.org/TR/2008/WD-skos-reference-20080829/skos.html">Simple Knowledge Organization System RDF Schema</a> (SKOS) (class <b>skos:Concept</b>)
+   			<li><a href="https://www.w3.org/OWL/">Web Ontology Language</a> (OWL) (property <b>owl:sameAs</b>)
+   			<li><a href="https://www.w3.org/TR/annotation-vocab/">Web Annotation Vocabulary</a> (class <b>oa:Annotation</b>)
+   		</ul>
+   	</p>
+	<p>CoW-LD employs the following subset of classes and properties given by EDM.</p>
+	<ul>
+		<li><b>edm:Agent</b> <p>This class comprises people, either individually or in groups, who have the potential to perform intentional actions for which they can beheld responsible;</p></li>
+		<li><b>ore:Aggregation</b> <p>BLA BLA BLA</p>
+		<li><b>edm:providedCHO</b> <p>This class includes the Cultural Heritage objects that Europeana collects descriptions about; within CoW-LD this class is used to model letters;</p></li>
+		<li><b>edm:Place</b> <p>An extent in space, in particular on the surface of the earth, in the pure sense of physics: independent from temporal phenomena and matter (CIDOC CRM);</p></li>
+		<li><b>edm:Event</b> <p>An event is a change of states in cultural, social or physical systems, regardless of scale, brought about by a series or group of coherent physical, cultural, technological or legal phenomena (E5 Event in CIDOC CRM) or a set of coherent phenomena or cultural manifestations bounded in time and space (E4 Period in CIDOC CRM).</p></li>
+	
+	</ul>	
+	The following figure shows the representation of the entities used through the ontology defined by Europeana.
+	</p>
+	</div>
+	<div class="col-sm-12 text-center"> 
+   		<img src="img/dm.png" alt="Data Model" width="670" height="408">
+   </div>
+</div>
+</font>
+</body>
+</html>

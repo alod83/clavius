@@ -26,6 +26,8 @@
 @prefix ore: <http://www.openarchives.org/ore/terms/> .
 @prefix dbo: <http://dbpedia.org/ontology/> .
 @prefix wgs84_pos: <http://www.w3.org/2003/01/geo/wgs84_pos#> .
+@prefix oa: <http://www.w3.org/ns/oa#> .
+
 
 <> a d2r:Server;
 	rdfs:label "Clavius on the Web";
@@ -189,13 +191,6 @@ map:letter_rights a d2rq:PropertyBridge;
 	d2rq:constantValue "TO BE DECIDED";
 	.
 	
-# TODO decide rights
-map:letter_type a d2rq:PropertyBridge;
-	d2rq:belongsToClassMap map:Letter;
-	d2rq:property dc:type;
-	d2rq:constantValue dbo:Letter;
-	.
-	
 map:letter_current_location a d2rq:PropertyBridge;
 	d2rq:belongsToClassMap map:Letter;
 	d2rq:property edm:currentLocation;
@@ -238,16 +233,10 @@ map:agent_name a d2rq:PropertyBridge;
 	
 map:agent_surname a d2rq:PropertyBridge;
 	d2rq:belongsToClassMap map:Agent;
-	d2rq:property foaf:name;
+	d2rq:property foaf:surname;
 	d2rq:column "Person.surname";
 	.		
 
-map:agent_begin a d2rq:PropertyBridge;
-	d2rq:belongsToClassMap map:Agent;
-	d2rq:property edm:begin;
-	d2rq:condition "Person.was_born != 0";
-	d2rq:column "Person.was_born";
-	.	
 	
 map:agent_date_of_birth a d2rq:PropertyBridge;
     d2rq:belongsToClassMap map:Agent;
@@ -257,32 +246,13 @@ map:agent_date_of_birth a d2rq:PropertyBridge;
     d2rq:column "Person.was_born";
     .	
 	
-map:agent_end a d2rq:PropertyBridge;
-	d2rq:belongsToClassMap map:Agent;
-	d2rq:property edm:end;
-	d2rq:condition "Person.died != 0";
-	d2rq:column "Person.died";
-	.
-	
 map:agent_date_of_death a d2rq:PropertyBridge;
     d2rq:belongsToClassMap map:Agent;
     d2rq:property edm:end;
 	d2rq:condition "Person.died != 0";
 	d2rq:condition "Person.died != ''";
     d2rq:column "Person.died";
-    .			
-	
-map:agent_place_of_birth a d2rq:PropertyBridge;
-    d2rq:belongsToClassMap map:Agent;
-    d2rq:property edm:dbpedia;
-	d2rq:column "Person.born_in";
-	.
-	
-map:agent_place_of_death a d2rq:PropertyBridge;
-    d2rq:belongsToClassMap map:Agent;
-    d2rq:property edm:dbpedia;
-	d2rq:column "Person.died_in";
-	.	
+    .				
 
 map:agent_bio a d2rq:PropertyBridge;
     d2rq:belongsToClassMap map:Agent;
@@ -294,8 +264,43 @@ map:agent_wikipedia_page a d2rq:PropertyBridge;
     d2rq:belongsToClassMap map:Agent;
     d2rq:property owl:sameAs;
 	d2rq:condition "Person.person_id = Wikipedia_Person.person_id";
-    d2rq:column "Wikipedia_Person.Wikipedia_Page";
-    .	
+    d2rq:uriColumn "Wikipedia_Person.Wikipedia_Page";
+    .
+    
+map:agent_dbpedia_page a d2rq:PropertyBridge;
+    d2rq:belongsToClassMap map:Agent;
+    d2rq:property owl:sameAs;
+	d2rq:condition "Person.person_id = DBpedia_Person.person_id";
+    d2rq:uriColumn "DBpedia_Person.DBpedia_Page";
+    .
+
+map:agent_treccani_page a d2rq:PropertyBridge;
+    d2rq:belongsToClassMap map:Agent;
+    d2rq:property owl:sameAs;
+	d2rq:condition "Person.person_id = Treccani.person_id";
+    d2rq:uriColumn "Treccani.Treccani_Page";
+    .
+    
+map:agent_viaf_page a d2rq:PropertyBridge;
+    d2rq:belongsToClassMap map:Agent;
+    d2rq:property owl:sameAs;
+	d2rq:condition "Person.person_id = VIAF.person_id";
+    d2rq:uriColumn "VIAF.VIAF_Page";
+    .
+    
+map:google_books a d2rq:PropertyBridge;
+    d2rq:belongsToClassMap map:Agent;
+    d2rq:property edm:isRelatedTo;
+	d2rq:condition "Person.person_id = GoogleBooks.person_id";
+    d2rq:uriColumn "GoogleBooks.link";
+    .
+    
+map:agent_knows a d2rq:PropertyBridge;
+    d2rq:belongsToClassMap map:Agent;
+	d2rq:property foaf:knows;
+	d2rq:condition "Person.person_id != 135";
+	d2rq:uriPattern "Christoph_Clavius";
+	.
 	
 # Place
 map:Place a d2rq:ClassMap; 
@@ -309,6 +314,27 @@ map:place_name a d2rq:PropertyBridge;
 	d2rq:property skos:prefLabel;
 	d2rq:column "Place.original_name";
 	.
+	
+map:place_dbpedia_page a d2rq:PropertyBridge;
+    d2rq:belongsToClassMap map:Place;
+    d2rq:property owl:sameAs;
+	d2rq:condition "Place.location_id = DBpedia_Place.location_id";
+    d2rq:uriColumn "DBpedia_Place.DBpedia_Page";
+    .
+    
+map:place_wikipedia_page a d2rq:PropertyBridge;
+    d2rq:belongsToClassMap map:Place;
+    d2rq:property owl:sameAs;
+	d2rq:condition "Place.location_id = Wikipedia_Place.location_id";
+    d2rq:uriColumn "Wikipedia_Place.Wikipedia_Page";
+    .
+
+map:place_geonames_page a d2rq:PropertyBridge;
+    d2rq:belongsToClassMap map:Place;
+    d2rq:property owl:sameAs;
+	d2rq:condition "Place.location_id = GeoNames.location_id";
+    d2rq:uriColumn "GeoNames.GeoNames_Page";
+    .
 	
 # Organization
 map:Organization a d2rq:ClassMap; 
@@ -337,4 +363,154 @@ map:Subject_label a d2rq:PropertyBridge;
 	d2rq:property skos:prefLabel;
 	d2rq:condition "Letter.author = Person.person_id";
 	d2rq:pattern "Letter from @@Person.name_surname@@ to Christopher Clavius";
+.
+
+# Event Person
+map:Event_Person a d2rq:ClassMap; 
+	d2rq:dataStorage map:database;
+	d2rq:class edm:Event;
+	d2rq:uriPattern "@@Event.description_event|urlify@@";
+	.
+	
+map:Event_label a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Event_Person;
+	d2rq:property skos:prefLabel;
+	d2rq:column "Event.description_event";
+.
+
+map:Event_occurred_at a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Event_Person;
+	d2rq:property edm:occurredAt;
+	d2rq:condition "Event.year_event != ''";
+	d2rq:uriPattern "http://dbpedia.org/resource/@@Event.year_event|urlify@@";
+.
+
+map:Event_happened_at a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Event_Person;
+	d2rq:property edm:happenedAt;
+	d2rq:condition "Event.place_event != ''";
+	d2rq:uriPattern "@@Event.place_event|urlify@@";
+.
+map:Agent_in_Event a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Agent;
+	d2rq:property edm:wasPresentAt;
+	d2rq:condition "Event.person_id = Person.person_id";
+	d2rq:uriPattern "@@Event.description_event|urlify@@";
+.
+
+# Event Letter
+map:Event_Letter a d2rq:ClassMap; 
+	d2rq:dataStorage map:database;
+	d2rq:class edm:Event;
+	d2rq:condition "Letter.author = Person.person_id";
+	d2rq:uriPattern "@@Person.name_surname|urlify@@_wrote_letter_@@Letter.local_name|urlify@@_to_Christopher_Clavius";
+	.
+	
+map:Event_letter_occurred_at a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Event_Letter;
+	d2rq:property edm:occurredAt;
+	d2rq:uriPattern "dbpedia:@@Letter.year|urlify@@";
+.
+
+map:Agent_in_Event_letter a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Agent;
+	d2rq:property edm:wasPresentAt;
+	d2rq:condition "Letter.author = Person.person_id";
+	d2rq:uriPattern "@@Person.name_surname|urlify@@_wrote_letter_@@Letter.local_name|urlify@@_to_Christopher_Clavius";
+.
+
+map:Letter_in_Event_letter a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Letter;
+	d2rq:property edm:wasPresentAt;
+	d2rq:condition "Letter.author = Person.person_id";
+	d2rq:uriPattern "@@Person.name_surname|urlify@@_wrote_letter_@@Letter.local_name|urlify@@_to_Christopher_Clavius";
+.
+
+map:Event_letter_happened_at a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Event_Letter;
+	d2rq:property edm:happenedAt;
+	d2rq:condition "Letter.src_place_id = Place.location_id";
+	d2rq:uriPattern "@@Place.original_name|urlify@@";
+.
+
+map:Event_letter_label a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Event_Letter;
+	d2rq:property skos:prefLabel;
+	d2rq:condition "Letter.author = Person.person_id";
+	d2rq:pattern "@@Person.name_surname@@ wrote letter @@Letter.local_name@@ to Christopher Clavius";
+.
+
+# Annotation_Geometry
+map:Annotation_Geometry a d2rq:ClassMap; 
+	d2rq:dataStorage map:database;
+	d2rq:class oa:Annotation;
+	d2rq:condition "Annotation.concept = 'Geometry'";
+	d2rq:condition "Annotation.annotation_id = Geometry.geometry_id";
+	d2rq:uriPattern "Annotation_@@Geometry.value_en@@";
+	.
+
+map:Annotation_Geometry_target a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Annotation_Geometry;
+	d2rq:property oa:hasTarget;
+	d2rq:condition "Annotation.concept = 'Geometry'";
+	d2rq:condition "Letter.id = Annotation.letter_id";
+	d2rq:uriPattern "letter-@@Letter.local_name|urlify@@";
+.
+
+map:Annotation_Geometry_Body a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Annotation_Geometry;
+	d2rq:property oa:hasBody;
+	d2rq:condition "Annotation.concept = 'Geometry'";
+	d2rq:condition "Annotation.annotation_id = Geometry.geometry_id";
+	d2rq:uriColumn "Geometry.DBpedia_Page";
+.
+
+# Annotation_Person
+map:Annotation_Person a d2rq:ClassMap; 
+	d2rq:dataStorage map:database;
+	d2rq:class oa:Annotation;
+	d2rq:condition "Annotation.concept = 'Person'";
+	d2rq:condition "Annotation.annotation_id = Person.person_id";
+	d2rq:uriPattern "Annotation_@@Person.name_surname|urlify@@";
+	.
+
+map:Annotation_Person_target a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Annotation_Person;
+	d2rq:property oa:hasTarget;
+	d2rq:condition "Annotation.concept = 'Person'";
+	d2rq:condition "Letter.id = Annotation.letter_id";
+	d2rq:uriPattern "letter-@@Letter.local_name|urlify@@";
+.
+
+map:Annotation_Person_Body a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Annotation_Person;
+	d2rq:property oa:hasBody;
+	d2rq:condition "Annotation.concept = 'Person'";
+	d2rq:condition "Annotation.annotation_id = Person.person_id";
+	d2rq:uriPattern "@@Person.name_surname|urlify@@";
+.
+
+# Annotation_Place
+map:Annotation_Place a d2rq:ClassMap; 
+	d2rq:dataStorage map:database;
+	d2rq:class oa:Annotation;
+	d2rq:condition "Annotation.concept = 'Place'";
+	d2rq:condition "Annotation.annotation_id = Place.location_id";
+	d2rq:uriPattern "Annotation_@@Place.original_name|urlify@@";
+	.
+
+map:Annotation_Place_target a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Annotation_Place;
+	d2rq:property oa:hasTarget;
+	d2rq:condition "Annotation.concept = 'Place'";
+	d2rq:condition "Letter.id = Annotation.letter_id";
+	d2rq:uriPattern "letter-@@Letter.local_name|urlify@@";
+.
+
+map:Annotation_Place_Body a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Annotation_Place;
+	d2rq:property oa:hasBody;
+	d2rq:condition "Annotation.concept = 'Place'";
+	d2rq:condition "Annotation.annotation_id = Place.location_id";
+	d2rq:uriPattern "@@Place.original_name|urlify@@";
 .

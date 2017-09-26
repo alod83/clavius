@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Clavius on the web Linked Dataset</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/main.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>                        
+      </button>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="ontology.html">Ontology</a></li>
+        <li><a href="resource.html">Resources</a></li>
+        <li><a href="dataset.html">Dataset</a></li>
+		<li><a href="contacts.html">Contacts</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+  
+<div class="container-fluid text-center">    
+   <div class="col-sm-12 text-justify"> 
+   	<h1>Resources</h1>
+   	
+	<p>
+	From manuscripts owned by APUG, the following resources have been extracted:
+	<ul>
+		<li><b>letters</b>: all handwritten letters;
+		<li><b>agents</b> (person): all the authors of letters;
+		<li><b>places</b>: all the places where the letters were written;
+		<li><b>events</b>: all events related to the lives of the characters and the process of creating letters
+		<li><b>annotations</b>: all the annotations cited in the letters;
+		<li><b>concepts</b>: other concepts.
+	</ul>
+	The dataset also contains the resource <b>year</b>, but it is not defined directly as an internal resource, but it is modeled as an external link to the same resource in <a href="http://wiki.dbpedia.org/">DBpedia</a>. 
+	In fact, even for places, we could have directly plugged in DBpedia instead of defining a new resource. 
+	However, there are some places that are not present on DBpedia, so, for greater uniformity, we have decided to model all sites as internal resources. 
+	</p>
+	
+	<h3>Internal Links</h3>
+	<p>Each letter contains the following internal links (links among resources within the CoW-LD dataset):
+	<ul>
+		<li><b>Annotation</b> (cited Persons, Places, Geometries)
+		<li><b>Event</b>
+		<li><b>Person</b> (author/recipient)
+		<li><b>Place</b> (where the letter is)
+		<li><b>Concept</b> (expressed through the property edm:isRelatedTo or dcterms:subject)
+	</ul>
+	</p>
+	<p>The following figure shows an example of Letter (resource letter-139).
+	</p>
+	</div>
+	<div class="col-sm-12 text-center"> 
+   		<img src="img/Letter-139.png" alt="Letter-139" width="960" height="720">
+   </div>
+	
+	<div class="col-sm-12 text-justify"> 
+	<h3>External Links</h3>
+	<p>CoW-LD contains external links to the following sources:
+	<ul>
+		<li><b>Agent</b>
+			<p><ol>
+				<li><a href="http://dbpedia.org">DBpedia</a>
+				<li><a href="https://books.google.com/">Google Books</a>
+				<li><a href="http://www.treccani.it/">Treccani</a> (both Dizionario and Encyclopedia)
+				<li><a href="https://viaf.org/">VIAF</a>
+				<li><a href="https://www.wikipedia.org/">Wikipedia</a> (both Italian and English)
+				
+			</ol></p>
+		<li><b>Place</b>
+			<p><ol>
+				<li><a href="http://dbpedia.org">DBpedia</a>
+				<li><a href="http://www.geonames.org/">GeoNames</a>
+				<li><a href="https://www.wikipedia.org/">Wikipedia</a> (both Italian and English)
+				
+			</ol></p>
+			
+		<li><b>Event</b>
+			<p><ol>
+				<li><a href="http://dbpedia.org">DBpedia</a>
+			</ol></p>
+	
+	</p>
+   	<p>The following figure shows an example of Agent (resource Galileo Galilei).
+	</p>
+	</div>
+	<div class="col-sm-12 text-center"> 
+   		<img src="img/GalileoGalilei.png" alt="Galileo Galilei" width="960" height="720">
+   </div>
+	</div>
+</div>
+</font>
+</body>
+</html>
