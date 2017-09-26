@@ -75,7 +75,9 @@ map:aggregation_data_provider a d2rq:PropertyBridge;
 map:aggregation_has_view a d2rq:PropertyBridge;
 	d2rq:belongsToClassMap map:Aggregation;
 	d2rq:property edm:hasView;
-	d2rq:uriPattern "#";
+	d2rq:condition "Letter.id = Facsimiles.letter_id";
+	d2rq:condition "Facsimiles.type = 'normal'";
+	d2rq:uriPattern "http://claviusontheweb.it/facsimiles/grandi/@@Facsimiles.link@@";
 	.
 	
 # URI of the preview
@@ -108,7 +110,7 @@ map:aggregation_aggregated_cho a d2rq:PropertyBridge;
 	d2rq:property edm:aggregatedCHO;
 	d2rq:uriPattern "letter-@@Letter.local_name|urlify@@";
 	.
-
+	
 # Letter
 map:Letter a d2rq:ClassMap;
 	d2rq:dataStorage map:database;
