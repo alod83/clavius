@@ -46,6 +46,37 @@
    		</ul>
    	</p>
    	
+   	<h3>Examples about Resources</h3>
+   	<p>
+   	You can start browsing CoW-LD by giving a look to the following examples of resources:
+   		<ul>
+   			<li><a href="http://claviusontheweb.it/dataset/resource/Galileo_Galilei">Galileo Galilei</a> (Agent)
+   			<li><a href="http://claviusontheweb.it/dataset/resource/Roma">Rome</a> (Place)
+   			<li><a href="http://claviusontheweb.it/dataset/resource/letter-319">Letter 319</a> (ProvidedCHO)
+   			<li><a href="http://claviusontheweb.it/dataset/resource/Galileo_Galilei_is_forced_to_abjure_his_thesis_about_the_heliocentric_theory">Galileo Galilei is forced to abjure his thesis about the heliocentric theory</a> (Event)
+   			<li><a href="http://claviusontheweb.it/dataset/resource/Annotation_Circle">Circle</a> (Annotation)
+   			<li><a href="http://claviusontheweb.it/dataset/resource/From_Galileo_Galilei">Letter from Galilei to Clavius</a> (Concept)
+   			
+   		</ul>
+   	</p>
+   	
+   	<h3>Examples about SPARQL queries</h3>
+   	<p>
+   	<ul>
+   	<li><b>All the properties belonging to the resource 
+   		<a href="http://claviusontheweb.it/dataset/resource/Galileo_Galilei">clavius:Galileo_Galilei</a></b>
+   		<p><code>SELECT ?p ?o WHERE { clavius:Galileo_Galilei ?p ?o .}</code></p>
+   	
+   	<li><b>All the letters written by 
+   		<a href="http://claviusontheweb.it/dataset/resource/Galileo_Galilei">clavius:Galileo_Galilei</a></b>
+   		<p><code>SELECT ?letter WHERE{ ?letter dc:creator clavius:Galileo_Galilei .}</code></p>
+   	
+   	<li><b>All the letters which contain a reference to a circle (geometric concept)</b>
+   	<p><code>SELECT ?letter WHERE{ ?annotation oa:hasTarget ?letter; oa:hasBody dbpedia:Circle .}</code></p>
+   	
+   	</ul>
+   	</p>
+   	
    	<h3>License</h3>
    	<p>
    	CoW-LD is released under Creative Commons <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a> license.

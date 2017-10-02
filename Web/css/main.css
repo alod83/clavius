@@ -7,13 +7,11 @@
     
     .sidenav {
       background-color: #ffdd99;
-      height: 100%;
-    }
+      }
    
     .navbar {
       background-color: #4d3300;
 	  color: black;
-      height: 100%;
     }
 
     @media screen and (max-width: 767px) {

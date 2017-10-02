@@ -102,7 +102,7 @@ map:aggregation_intermediate_provider a d2rq:PropertyBridge;
 map:aggregation_rights a d2rq:PropertyBridge;
 	d2rq:belongsToClassMap map:Aggregation;
 	d2rq:property dc:rights;
-	d2rq:uriPattern "#";
+	d2rq:uriPattern "https://creativecommons.org/licenses/by-sa/4.0/";
 	.
 	
 map:aggregation_aggregated_cho a d2rq:PropertyBridge;
@@ -190,7 +190,7 @@ map:letter_publisher a d2rq:PropertyBridge;
 map:letter_rights a d2rq:PropertyBridge;
 	d2rq:belongsToClassMap map:Letter;
 	d2rq:property dc:rights;
-	d2rq:constantValue "TO BE DECIDED";
+	d2rq:uriPattern "https://creativecommons.org/licenses/by-sa/4.0/";
 	.
 	
 map:letter_current_location a d2rq:PropertyBridge;
