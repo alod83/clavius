@@ -1,0 +1,154 @@
+@prefix void: <http://rdfs.org/ns/void#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix dbo: <http://dbpedia.org/ontology/> .
+@prefix foaf: <http://xmlns.com/foaf/#> .
+@prefix dcterms: <http://purl.org/dc/terms/subject> .
+@prefix dc: <http://purl.org/dc/elements/1.1/> .
+@prefix bibo: <http://purl.org/ontology/bibo/> .
+@prefix schema: <http://schema.org/> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix edm: <http://www.europeana.eu/schemas/edm/> .
+@prefix ore: <http://www.openarchives.org/ore/terms/> .
+@prefix oa: <http://www.w3.org/ns/oa#> .
+
+
+<> a void:DatasetDescription;
+	dcterms:title "A VoID Description of the Clavius Linked Open Dataset";
+	# TODO add other people
+	dcterms:creator :APUG;
+	dcterms:creator :IIT-CNR;
+	foaf:primaryTopic :Clavius;
+	.
+
+:Clavius a void:Dataset;
+	dcterms:title "Clavius Linked Open Dataset";
+	dcterms:description "RDF version of the Clavius Dataset" ;
+	dcterms:license <https://creativecommons.org/licenses/by-sa/4.0/> ;
+	foaf:homepage <http://claviusontheweb.it/lod> ;
+	dcterms:source <http://claviusontheweb.it/lod> ;
+	dcterms:modified "2017-12-27"^^xsd:date ;
+	dcterms:publisher :IIT-CNR;
+	dcterms:publisher :APUG;
+	dcterms:contributor :IIT-CNR;
+	dcterms:contributor :APUG;
+	
+	dcterms:subject edm:Agent;
+	dcterms:subject ore:Aggregation;
+	dcterms:subject oa:Annotation;
+	dcterms:subject skos:Concept;
+	dcterms:subject edm:Event;
+	dcterms:subject edm:Place;
+	dcterms:subject edm:ProvidedCHO;
+	dcterms:subject edm:WebResource;
+	
+	
+	void:feature <http://www.w3.org/ns/formats/RDF_XML>;
+	void:feature <http://www.w3.org/ns/formats/Turtle>;
+	void:sparqlEndpoint <http://www.dogi.cnr.it/snorql/>;
+	void:sparqlEndpoint <http://www.dogi.cnr.it/sparql>;
+	
+	void:dataDump <http://claviusontheweb.it/lod/download/clavius-lod.rdf>;
+	
+	void:exampleResource <http://claviusontheweb.it/dataset/resource/Galileo_Galilei> ;
+	void:exampleResource <http://claviusontheweb.it/dataset/resource/Roma>;
+	void:exampleResource <http://claviusontheweb.it/dataset/resource/letter-319>;
+	void:exampleResource <http://claviusontheweb.it/dataset/resource/Galileo_Galilei_is_forced_to_abjure_his_thesis_about_the_heliocentric_theory>;
+	void:exampleResource <http://claviusontheweb.it/dataset/resource/Annotation_Circle>;
+	void:exampleResource <http://claviusontheweb.it/dataset/resource/From_Galileo_Galilei>;
+	
+	void:uriSpace "http://claviusontheweb.it/dataset/resource";
+	
+	void:vocabulary <http://rdfs.org/ns/void#>;
+	void:vocabulary <http://www.w3.org/2002/07/owl#>;
+	void:vocabulary <http://www.w3.org/1999/02/22-rdf-syntax-ns#>;
+	void:vocabulary <http://www.w3.org/2000/01/rdf-schema#>;
+	void:vocabulary <http://www.w3.org/2001/XMLSchema#>;
+	void:vocabulary <http://dbpedia.org/ontology/>;
+	void:vocabulary <http://xmlns.com/foaf/#>;
+	void:vocabulary <http://purl.org/dc/terms/subject>;
+	void:vocabulary <http://purl.org/dc/elements/1.1/>;
+	void:vocabulary <http://www.w3.org/2004/02/skos/core#>;
+	void:vocabulary <http://www.europeana.eu/schemas/edm/>;
+	void:vocabulary <http://www.openarchives.org/ore/terms/>;
+	void:vocabulary <http://www.w3.org/ns/oa#>;
+	
+	# TODO add statistics
+	void:triples  13128;
+	void:entities 1454;
+	void:properties 34;
+	void:distinctSubjects 1656;
+	void:distinctObjects 6420;
+	void:classes 6;
+	.
+  	
+:APUG a foaf:Organization;
+	rdfs:label "Historical Archives of the Pontifical University, Rome, Italy";
+	.
+
+:IIT-CNR a foaf:Organization;
+	rdfs:label "Institute of Informatics and Telematics - National Research Council, Italy";
+	.
+
+:Clavius_DBpedia a void:Linkset;
+	void:target :DBpedia;
+	void:target :Clavius;
+	void:linkPredicate owl:sameAs;
+	void:triples 146;
+	.
+:DBpedia a void:Dataset;
+	void:homepage <http://dbpedia.org>;
+	.
+	
+:Clavius_VIAF a void:Linkset;
+	void:target :VIAF;
+	void:target :Clavius;
+	void:linkPredicate owl:sameAs;
+	void:triples 101;
+	.
+:VIAF a void:Dataset;
+	void:homepage <http://viaf.org>;
+	.
+
+:Clavius_Treccani a void:Linkset;
+	void:target :Treccani;
+	void:target :Clavius;
+	void:linkPredicate owl:sameAs;
+	void:triples 36;
+	.
+:Treccani a void:Dataset;
+	void:homepage <http://www.treccani.it/>;
+	.
+	
+:Clavius_Wikipedia a void:Linkset;
+	void:target :Wikipedia;
+	void:target :Clavius;
+	void:linkPredicate owl:sameAs;
+	void:triples 282;
+	.
+:Wikipedia a void:Dataset;
+	void:homepage <https://www.wikipedia.org/>;
+	.
+
+:Clavius_GeoNames a void:Linkset;
+	void:target :GeoNames;
+	void:target :Clavius;
+	void:linkPredicate owl:sameAs;
+	void:triples 83;
+	.
+:GeoNames a void:Dataset;
+	void:homepage <http://www.geonames.org/>;
+	.
+	
+:Clavius_GoogleBooks a void:Linkset;
+	void:target :GoogleBooks;
+	void:target :Clavius;
+	void:linkPredicate edm:isRelatedTo;
+	void:triples 1805;
+	.
+:GoogleBooks a void:Dataset;
+	void:homepage <https://books.google.com>;
+	.
+
