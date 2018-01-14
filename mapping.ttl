@@ -265,12 +265,14 @@ map:agent_wikipedia_page a d2rq:PropertyBridge;
     d2rq:belongsToClassMap map:Agent;
     d2rq:property owl:sameAs;
 	d2rq:condition "Person.person_id = Wikipedia_Person.person_id";
+	d2rq:condition "Wikipedia_Person.Wikipedia_Page != ''";
     d2rq:uriColumn "Wikipedia_Person.Wikipedia_Page";
     .
     
 map:agent_dbpedia_page a d2rq:PropertyBridge;
     d2rq:belongsToClassMap map:Agent;
     d2rq:property owl:sameAs;
+    d2rq:condition "DBpedia_Person.DBpedia_Page != ''";
 	d2rq:condition "Person.person_id = DBpedia_Person.person_id";
     d2rq:uriColumn "DBpedia_Person.DBpedia_Page";
     .
@@ -278,6 +280,7 @@ map:agent_dbpedia_page a d2rq:PropertyBridge;
 map:agent_treccani_page a d2rq:PropertyBridge;
     d2rq:belongsToClassMap map:Agent;
     d2rq:property owl:sameAs;
+    d2rq:condition "Treccani.Treccani_Page != ''";
 	d2rq:condition "Person.person_id = Treccani.person_id";
     d2rq:uriColumn "Treccani.Treccani_Page";
     .
@@ -285,6 +288,7 @@ map:agent_treccani_page a d2rq:PropertyBridge;
 map:agent_viaf_page a d2rq:PropertyBridge;
     d2rq:belongsToClassMap map:Agent;
     d2rq:property owl:sameAs;
+    d2rq:condition "VIAF.VIAF_Page != ''";
 	d2rq:condition "Person.person_id = VIAF.person_id";
     d2rq:uriColumn "VIAF.VIAF_Page";
     .
@@ -292,6 +296,7 @@ map:agent_viaf_page a d2rq:PropertyBridge;
 map:google_books a d2rq:PropertyBridge;
     d2rq:belongsToClassMap map:Agent;
     d2rq:property edm:isRelatedTo;
+    d2rq:condition "GoogleBooks.link != ''";
 	d2rq:condition "Person.person_id = GoogleBooks.person_id";
     d2rq:uriColumn "GoogleBooks.link";
     .
@@ -326,6 +331,7 @@ map:place_dbpedia_page a d2rq:PropertyBridge;
 map:place_wikipedia_page a d2rq:PropertyBridge;
     d2rq:belongsToClassMap map:Place;
     d2rq:property owl:sameAs;
+    d2rq:condition "Wikipedia_Place.Wikipedia_Page != ''";
 	d2rq:condition "Place.location_id = Wikipedia_Place.location_id";
     d2rq:uriColumn "Wikipedia_Place.Wikipedia_Page";
     .
@@ -333,6 +339,7 @@ map:place_wikipedia_page a d2rq:PropertyBridge;
 map:place_geonames_page a d2rq:PropertyBridge;
     d2rq:belongsToClassMap map:Place;
     d2rq:property owl:sameAs;
+    d2rq:condition "GeoNames.GeoNames_Page != ''";
 	d2rq:condition "Place.location_id = GeoNames.location_id";
     d2rq:uriColumn "GeoNames.GeoNames_Page";
     .
@@ -350,7 +357,6 @@ map:APUG_name a d2rq:PropertyBridge;
 	d2rq:column "Providers.description";
 	.
 	
-
 # Subject
 map:Subject a d2rq:ClassMap; 
 	d2rq:dataStorage map:database;
